@@ -1,20 +1,40 @@
 
-//Created for SeBn Mezdra from Miroslav Vencislavov Shilov
+//Created for SeBn Mezdra by Miroslav Vencislavov Shilov
 
-import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
 import gnu.io.UnsupportedCommOperationException;
-import java.io.*;
-import java.awt.*;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.*;
-import javax.swing.*;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Scanner;
+
+import javax.swing.AbstractAction;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.event.*;
 
 public class SplacesLabels extends JFrame {
 
@@ -38,7 +58,7 @@ public class SplacesLabels extends JFrame {
 
 	private synchronized static void writeToFile(String msg) {
 
-		// Zapisva statistika v C:\
+		// Write statistic in C:\\LCheck\\Statistika\\STATISTIC.txt
 
 		String fileName = "C:\\LCheck\\Statistika\\STATISTIC.txt";
 		PrintWriter printWriter = null;
@@ -60,15 +80,15 @@ public class SplacesLabels extends JFrame {
 
 	
 
-	static OutputStream outputStream, comPort;
+	static OutputStream outputStream;
 	
-	int countData, packCounter, globalCounter, counterHarness, pack_counter = 0;
+	int packCounter, globalCounter, counterHarness, pack_counter = 0;
 	
-    String nfoForPassField1, DateToStr, passContainer, maoInfoFromField, OK_LABEL_toString, SHIPPING_LABEL_toString;
+    String DateToStr, passContainer, maoInfoFromField, OK_LABEL_toString, SHIPPING_LABEL_toString;
 
-	StringBuilder nfoForPassField, SHIPPING_LABEL, OK_LABEL;
+	StringBuilder passwordToPrintInField, SHIPPING_LABEL, OK_LABEL;
 
-	Scanner scanEti, scanEtiKraen, scanPath;
+	Scanner scanEtiOk, scanEtiKraen, scanPath;
 
     Date date;
 
@@ -89,7 +109,7 @@ public class SplacesLabels extends JFrame {
 	SplacesLabels() {
 		super("Spoiki");
 
-		nfoForPassField = new StringBuilder();
+		passwordToPrintInField = new StringBuilder();
 
 		passFrame = new JFrame("бзбедх оепянмюкем мнлеп");
 		passFrame.setLayout(null);
@@ -305,23 +325,23 @@ public class SplacesLabels extends JFrame {
 
 			if (isPasswordAccept) {
 
-				nfoForPassField = new StringBuilder();
+				passwordToPrintInField = new StringBuilder();
 
 				// Inicializacia na etiketa ot baza danni C//LCheck
 
 				File etiFile = new File("C:\\LCheck\\LCheck_OK.txt");
 
 				try {
-					scanEti = new Scanner(etiFile, "windows-1252");
+					scanEtiOk = new Scanner(etiFile, "windows-1252");
 				} catch (FileNotFoundException e1) {
 
 					System.out.println("Nqma etiket");
 				}
 
 				OK_LABEL = new StringBuilder();
-				while (scanEti.hasNextLine()) {
+				while (scanEtiOk.hasNextLine()) {
 
-					OK_LABEL.append(scanEti.nextLine());
+					OK_LABEL.append(scanEtiOk.nextLine());
 
 				}
 				// preobrazuvane na etiketa v String
@@ -570,11 +590,11 @@ public class SplacesLabels extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 
-			nfoForPassField.append("1");
+			passwordToPrintInField.append("1");
 
-			nfoForPassField1 = String.valueOf(nfoForPassField);
+			
 
-			passField.setText(nfoForPassField1);
+			passField.setText(String.valueOf(passwordToPrintInField));
 		}
 
 	}
@@ -583,11 +603,11 @@ public class SplacesLabels extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 
-			nfoForPassField.append("2");
+			passwordToPrintInField.append("2");
 
-			nfoForPassField1 = String.valueOf(nfoForPassField);
+			
 
-			passField.setText(nfoForPassField1);
+			passField.setText(String.valueOf(passwordToPrintInField));
 		}
 
 	}
@@ -596,11 +616,11 @@ public class SplacesLabels extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 
-			nfoForPassField.append("3");
+			passwordToPrintInField.append("3");
 
-			nfoForPassField1 = String.valueOf(nfoForPassField);
+			
 
-			passField.setText(nfoForPassField1);
+			passField.setText(String.valueOf(passwordToPrintInField));
 		}
 
 	}
@@ -609,11 +629,11 @@ public class SplacesLabels extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 
-			nfoForPassField.append("4");
+			passwordToPrintInField.append("4");
 
-			nfoForPassField1 = String.valueOf(nfoForPassField);
+			
 
-			passField.setText(nfoForPassField1);
+			passField.setText(String.valueOf(passwordToPrintInField));
 		}
 
 	}
@@ -622,11 +642,11 @@ public class SplacesLabels extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 
-			nfoForPassField.append("5");
+			passwordToPrintInField.append("5");
 
-			nfoForPassField1 = String.valueOf(nfoForPassField);
+			
 
-			passField.setText(nfoForPassField1);
+			passField.setText(String.valueOf(passwordToPrintInField));
 		}
 
 	}
@@ -635,11 +655,11 @@ public class SplacesLabels extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 
-			nfoForPassField.append("6");
+			passwordToPrintInField.append("6");
 
-			nfoForPassField1 = String.valueOf(nfoForPassField);
+			
 
-			passField.setText(nfoForPassField1);
+			passField.setText(String.valueOf(passwordToPrintInField));
 		}
 
 	}
@@ -648,11 +668,11 @@ public class SplacesLabels extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 
-			nfoForPassField.append("7");
+			passwordToPrintInField.append("7");
 
-			nfoForPassField1 = String.valueOf(nfoForPassField);
+			
 
-			passField.setText(nfoForPassField1);
+			passField.setText(String.valueOf(passwordToPrintInField));
 		}
 
 	}
@@ -661,11 +681,11 @@ public class SplacesLabels extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 
-			nfoForPassField.append("8");
+			passwordToPrintInField.append("8");
 
-			nfoForPassField1 = String.valueOf(nfoForPassField);
+			
 
-			passField.setText(nfoForPassField1);
+			passField.setText(String.valueOf(passwordToPrintInField));
 		}
 
 	}
@@ -674,11 +694,11 @@ public class SplacesLabels extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 
-			nfoForPassField.append("9");
+			passwordToPrintInField.append("9");
 
-			nfoForPassField1 = String.valueOf(nfoForPassField);
+		
 
-			passField.setText(nfoForPassField1);
+			passField.setText(String.valueOf(passwordToPrintInField));
 		}
 
 	}
@@ -687,11 +707,11 @@ public class SplacesLabels extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 
-			nfoForPassField.append("0");
+			passwordToPrintInField.append("0");
 
-			nfoForPassField1 = String.valueOf(nfoForPassField);
+			
 
-			passField.setText(nfoForPassField1);
+			passField.setText(String.valueOf(passwordToPrintInField));
 		}
 
 	}
@@ -700,7 +720,7 @@ public class SplacesLabels extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 
-			nfoForPassField = new StringBuilder();
+			passwordToPrintInField = new StringBuilder();
 
 			logInButton.setBackground(Color.GREEN);
 
@@ -1232,7 +1252,7 @@ public class SplacesLabels extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 
-			nfoForPassField = new StringBuilder();
+			passwordToPrintInField = new StringBuilder();
 
 			logInButton.setBackground(Color.GREEN);
 
