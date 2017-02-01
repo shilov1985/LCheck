@@ -1,0 +1,15 @@
+               lnfo
+   informaciata na redovete vuv failovete v LCheck trqbva da e v 
+opredelen model,koito ne trqbva da se promenq!!!
+
+Systemna informacia-Constantni imena
+
+MAONUMBER-Vzema info ot tretoto pole za skanirane na barkod
+TILENUMBER-pi6e se v etiketa.Nomera na varianta
+DATE-aktualnata data v etiketa
+USER-personalen nomer na rabotnika
+
+STATISTIC -imeto na .txt faila kadeto se zapisva statistikata
+Ako nqma fail STATISTIC.txt programata go sazdava .
+
+V dataBase e napisan paketaja na kraq na vseki red.
